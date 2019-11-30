@@ -3,6 +3,7 @@ syntax = "proto3";
 package test.bazel.proto;
 
 import "test/proto/common/pizza.proto";
+import "google/protobuf/timestamp.proto";
 
 message DeliveryPerson {
   // The name of the delivery person.
@@ -10,4 +11,6 @@ message DeliveryPerson {
 
   // The list of pizzas the delivery person has left to deliver.
   repeated Pizza pizzas = 2;
+
+  google.protobuf.Timestamp last_delivery_time = 3;
 }
