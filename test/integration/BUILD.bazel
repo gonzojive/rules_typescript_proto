@@ -1,0 +1,30 @@
+load("@rules_java//java:defs.bzl", "java_library")
+load("@io_bazel_rules_webtesting//web:java.bzl", "java_web_test_suite")
+
+java_web_test_suite(
+    name = "integration_test",
+    size = "small",
+    browsers = [
+        "@io_bazel_rules_webtesting//browsers:chromium-local",
+    ],
+    tags = ["native"],
+    test_class = "test.integration.IntegrationTest",
+    runtime_deps = [
+        ":IntegrationTest",
+    ],
+)
+
+java_library(
+    name = "IntegrationTest",
+    testonly = True,
+    srcs = ["IntegrationTest.java"],
+    deps = [
+        "@bazel_tools//tools/java/runfiles",
+        "@com_google_protobuf//:protobuf_java",
+        "@io_bazel_rules_webtesting//java/com/google/testing/web",
+        "@maven//:com_google_truth_truth",
+        "@maven//:junit_junit",
+        "@maven//:org_seleniumhq_selenium_selenium_api",
+        "@maven//:org_seleniumhq_selenium_selenium_support",
+    ],
+)
