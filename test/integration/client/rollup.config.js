@@ -7,11 +7,6 @@ module.exports = {
       mainFields: ['browser', 'es2015', 'module', 'jsnext:main', 'main'],
     }),
     commonjs({
-      namedExports: {
-        'node_modules/@improbable-eng/grpc-web/dist/grpc-web-client.umd.js': [
-          'grpc',
-        ],
-      },
       extensions: ['.js', '.mjs'],
     }),
   ],
