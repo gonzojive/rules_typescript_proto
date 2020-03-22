@@ -80,6 +80,7 @@ maven_install(
         "org.seleniumhq.selenium:selenium-support:3.141.59",
     ] + RULES_WEBTESTING_ARTIFACTS + IO_GRPC_GRPC_JAVA_ARTIFACTS,
     generate_compat_repositories = True,
+    override_targets = IO_GRPC_GRPC_JAVA_OVERRIDE_TARGETS,
     repositories = [
         "https://jcenter.bintray.com/",
         "https://maven.google.com",
