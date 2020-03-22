@@ -24,7 +24,7 @@ ts_library(
     deps = [
         "//test/proto:pizza_service_ts_proto",
         "//test/proto/common:delivery_person_ts_proto",
-        "@npm//@types/jasmine",
+        "@npm//@types",
     ],
 )
 
@@ -50,7 +50,7 @@ ts_library(
     tsconfig = ":tsconfig.json",
     deps = [
         "//test/proto/common:delivery_person_ts_proto",
-        "@npm//@types/jasmine",
+        "@npm//@types",
         # Don't put pizza_ts_proto here, we want to test it is included transitively
     ],
 )
@@ -75,7 +75,7 @@ ts_library(
     deps = [
         "//test/proto:pizza_service_ts_proto",
         "//test/proto/common:pizza_ts_proto",
-        "@npm//@types/jasmine",
+        "@npm//@types",
         # Don't put delivery_person_ts_proto here, we want to test it is included transitively
     ],
 )
