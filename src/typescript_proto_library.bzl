@@ -211,13 +211,13 @@ def _typescript_proto_library_impl(ctx):
             es6_sources = es6_srcs,
             transitive_es5_sources = es5_srcs,
             transitive_es6_sources = es6_srcs,
+            type_blacklisted_declarations = depset([]),
         ),
         providers = [
             DefaultInfo(files = outputs),
             DeclarationInfo(
                 declarations = dts_outputs,
                 transitive_declarations = transitive_declarations,
-                type_blacklisted_declarations = depset([]),
             ),
             JSNamedModuleInfo(
                 direct_sources = es5_srcs,

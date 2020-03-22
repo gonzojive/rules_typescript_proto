@@ -109,8 +109,8 @@ rollup_bundle(
     output_dir = True,
     deps = [
         ":test_bundling_lib",
-        "@npm//rollup-plugin-commonjs",
-        "@npm//rollup-plugin-node-resolve",
+        "@npm//@rollup/plugin-commonjs",
+        "@npm//@rollup/plugin-node-resolve",
     ],
     format = "cjs",
 )

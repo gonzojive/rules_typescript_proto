@@ -6,9 +6,9 @@ load("@bazel_tools//tools/build_defs/repo:http.bzl", "http_archive")
 
 http_archive(
     name = "build_bazel_rules_nodejs",
-    sha256 = "ad4be2c6f40f5af70c7edf294955f9d9a0222c8e2756109731b25f79ea2ccea0",
+    sha256 = "16fc00ab0d1e538e88f084272316c0693a2e9007d64f45529b82f6230aedb073",
     urls = [
-        "https://github.com/bazelbuild/rules_nodejs/releases/download/0.38.3/rules_nodejs-0.38.3.tar.gz",
+        "https://github.com/bazelbuild/rules_nodejs/releases/download/0.42.2/rules_nodejs-0.42.2.tar.gz",
     ],
 )
 
@@ -47,10 +47,17 @@ http_archive(
 )
 
 http_archive(
+    name = "io_bazel_rules_sass",
+    sha256 = "e1af475dacad99c675042fcb3bf15dfaa197a3759821f0244f1b210d4f04d468",
+    strip_prefix = "rules_sass-1.24.0",
+    url = "https://github.com/bazelbuild/rules_sass/archive/1.24.0.tar.gz",
+)
+
+http_archive(
     name = "io_bazel_rules_webtesting",
-    sha256 = "ad4be2c6f40f5af70c7edf294955f9d9a0222c8e2756109731b25f79ea2ccea0",
+    sha256 = "9bb461d5ef08e850025480bab185fd269242d4e533bca75bfb748001ceb343c3",
     urls = [
-        "https://github.com/bazelbuild/rules_nodejs/releases/download/0.38.3/rules_nodejs-0.38.3.tar.gz",
+        "https://github.com/bazelbuild/rules_webtesting/releases/download/0.3.3/rules_webtesting.tar.gz",
     ],
 )
 
@@ -61,6 +68,7 @@ load("@io_bazel_rules_webtesting//web:java_repositories.bzl", "RULES_WEBTESTING_
 
 maven_install(
     artifacts = [
+        "com.google.code.gson:gson:2.8.5",
         "com.google.truth:truth:0.42",
         "com.google.truth.extensions:truth-java8-extension:0.42",
         "io.netty:netty-tcnative-boringssl-static:2.0.25.Final",
@@ -108,6 +116,12 @@ yarn_install(
     yarn_lock = "//:yarn.lock",
 )
 
+yarn_install(
+    name = "test_npm",
+    package_json = "//test:package.json",
+    yarn_lock = "//test:yarn.lock",
+)
+
 load("@npm//:install_bazel_dependencies.bzl", "install_bazel_dependencies")
 
 install_bazel_dependencies()
@@ -131,3 +145,7 @@ ts_setup_workspace()
 load("@rules_typescript_proto//:index.bzl", "rules_typescript_proto_dependencies")
 
 rules_typescript_proto_dependencies()
+
+load("@io_bazel_rules_sass//sass:sass_repositories.bzl", "sass_repositories")
+
+sass_repositories()
