@@ -65,6 +65,7 @@ http_archive(
 
 load("@rules_jvm_external//:defs.bzl", "maven_install")
 load("@io_bazel_rules_webtesting//web:java_repositories.bzl", "RULES_WEBTESTING_ARTIFACTS")
+load("@io_grpc_grpc_java//:repositories.bzl", "IO_GRPC_GRPC_JAVA_ARTIFACTS", "IO_GRPC_GRPC_JAVA_OVERRIDE_TARGETS")
 
 maven_install(
     artifacts = [
@@ -77,7 +78,7 @@ maven_install(
         "org.seleniumhq.selenium:selenium-api:3.141.59",
         "org.seleniumhq.selenium:selenium-remote-driver:3.141.59",
         "org.seleniumhq.selenium:selenium-support:3.141.59",
-    ] + RULES_WEBTESTING_ARTIFACTS,
+    ] + RULES_WEBTESTING_ARTIFACTS + IO_GRPC_GRPC_JAVA_ARTIFACTS,
     generate_compat_repositories = True,
     repositories = [
         "https://jcenter.bintray.com/",
