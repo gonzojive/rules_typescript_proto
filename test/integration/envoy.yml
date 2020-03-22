@@ -50,7 +50,7 @@ static_resources:
                   address:
                     socket_address:
                       address: 127.0.0.1
-                      port_value: 5432
+                      port_value: 5434
     - name: grpc_service
       connect_timeout: 0.25s
       type: LOGICAL_DNS

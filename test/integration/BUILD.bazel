@@ -7,7 +7,9 @@ java_web_test_suite(
     browsers = [
         "@io_bazel_rules_webtesting//browsers:chromium-local",
     ],
-    tags = ["native"],
+    tags = [
+        "native",
+    ],
     test_class = "test.integration.IntegrationTest",
     runtime_deps = [
         ":IntegrationTest",
@@ -20,7 +22,7 @@ java_library(
     srcs = ["IntegrationTest.java"],
     data = [
         ":envoy.yml",
-        #"//test/integration/client:prodserver",
+        "//test/integration/client:prodserver",
     ],
     runtime_deps = [
         "@io_grpc_grpc_java//netty",
