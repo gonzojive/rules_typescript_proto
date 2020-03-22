@@ -68,6 +68,7 @@ load("@io_grpc_grpc_java//:repositories.bzl", "IO_GRPC_GRPC_JAVA_ARTIFACTS", "IO
 maven_install(
     artifacts = [
         "com.google.code.gson:gson:2.8.5",
+        "com.google.guava:guava:28.2-jre",
         "com.google.truth:truth:0.42",
         "com.google.truth.extensions:truth-java8-extension:0.42",
         "io.netty:netty-tcnative-boringssl-static:2.0.25.Final",
