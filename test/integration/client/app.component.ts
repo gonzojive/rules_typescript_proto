@@ -21,10 +21,12 @@ export class AppComponent {
       });
     });
 
-    responsePromise.then((response: any) => {
-      this.rpcResponse = response.getPayload();
-    }).catch((e: Error) => {
-      this.rpcResponse = e.stack;
-    })
+    responsePromise
+        .then((response: any) => {
+          this.rpcResponse = response.getPayload();
+        })
+        .catch((e: Error) => {
+          this.rpcResponse = e.stack;
+        })
   }
 }

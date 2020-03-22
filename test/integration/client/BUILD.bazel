@@ -95,86 +95,86 @@ ts_devserver(
     deps = [":main"],
 )
 
-rollup_bundle(
-    name = "bundle-es2015",
-    config_file = "rollup.config.js",
-    entry_points = {
-        ":main.prod.ts": "index",
-    },
-    output_dir = True,
-    deps = [
-        ":main",
-        "@npm//@improbable-eng/grpc-web",
-        "@npm//@rollup/plugin-commonjs",
-        "@npm//@rollup/plugin-node-resolve",
-    ],
-)
-
-babel(
-    name = "bundle-es5",
-    args = [
-        "$(location :bundle-es2015)",
-        "--no-babelrc",
-        #"--source-maps",
-        "--presets=@babel/preset-env",
-        "--out-dir",
-        "$(@D)",
-    ],
-    data = [
-        ":bundle-es2015",
-        "@npm//@babel/preset-env",
-    ],
-    output_dir = True,
-)
-
-terser_minified(
-    name = "bundle-es2015.min",
-    src = ":bundle-es2015",
-)
-
-terser_minified(
-    name = "bundle-es5.min",
-    src = ":bundle-es5",
-)
-
-html_insert_assets(
-    name = "inject_scripts_for_prod",
-    # we can't output "src/example/index.html" since that collides with the devmode file.
-    # pkg_web rule will re-root paths that start with _{name} by default
-    # so we output "_prodapp/src/example/index.html" so that it is mapped to
-    # `example/index.html` in the web package.
-    outs = ["_prodapp/test/integration/client/index.html"],
-    args = [
-        "--html=$(location :index.prod.html)",
-        "--out=$@",
-        "--roots=. $(RULEDIR)",
-        "--assets",
-    ] + ["$(location %s)" % s for s in _ASSETS],
-    data = [":index.prod.html"] + _ASSETS,
-)
-
-pkg_web(
-    name = "prodapp",
-    # do not sort
-    srcs = _ASSETS + [
-        ":bundle-es2015.min",
-        ":bundle-es5.min",
-        ":inject_scripts_for_prod",
-        # Include polyfills that will be requested by old browsers
-        "@npm//:node_modules/systemjs/dist/system.js",
-        "@npm//:node_modules/core-js/client/core.min.js",
-    ],
-    additional_root_paths = [
-        "npm/node_modules/core-js/client",
-        "npm/node_modules/systemjs/dist",
-    ],
-)
-
-history_server(
-    name = "prodserver",
-    data = [":prodapp"],
-    templated_args = [
-        "-a",
-        "test/integration/client/prodapp",
-    ],
-)
+#rollup_bundle(
+#    name = "bundle-es2015",
+#    config_file = "rollup.config.js",
+#    entry_points = {
+#        ":main.prod.ts": "index",
+#    },
+#    output_dir = True,
+#    deps = [
+#        ":main",
+#        "@npm//@improbable-eng/grpc-web",
+#        "@npm//@rollup/plugin-commonjs",
+#        "@npm//@rollup/plugin-node-resolve",
+#    ],
+#)
+#
+#babel(
+#    name = "bundle-es5",
+#    args = [
+#        "$(location :bundle-es2015)",
+#        "--no-babelrc",
+#        #"--source-maps",
+#        "--presets=@babel/preset-env",
+#        "--out-dir",
+#        "$(@D)",
+#    ],
+#    data = [
+#        ":bundle-es2015",
+#        "@npm//@babel/preset-env",
+#    ],
+#    output_dir = True,
+#)
+#
+#terser_minified(
+#    name = "bundle-es2015.min",
+#    src = ":bundle-es2015",
+#)
+#
+#terser_minified(
+#    name = "bundle-es5.min",
+#    src = ":bundle-es5",
+#)
+#
+#html_insert_assets(
+#    name = "inject_scripts_for_prod",
+#    # we can't output "src/example/index.html" since that collides with the devmode file.
+#    # pkg_web rule will re-root paths that start with _{name} by default
+#    # so we output "_prodapp/src/example/index.html" so that it is mapped to
+#    # `example/index.html` in the web package.
+#    outs = ["_prodapp/test/integration/client/index.html"],
+#    args = [
+#        "--html=$(location :index.prod.html)",
+#        "--out=$@",
+#        "--roots=. $(RULEDIR)",
+#        "--assets",
+#    ] + ["$(location %s)" % s for s in _ASSETS],
+#    data = [":index.prod.html"] + _ASSETS,
+#)
+#
+#pkg_web(
+#    name = "prodapp",
+#    # do not sort
+#    srcs = _ASSETS + [
+#        ":bundle-es2015.min",
+#        ":bundle-es5.min",
+#        ":inject_scripts_for_prod",
+#        # Include polyfills that will be requested by old browsers
+#        "@npm//:node_modules/systemjs/dist/system.js",
+#        "@npm//:node_modules/core-js/client/core.min.js",
+#    ],
+#    additional_root_paths = [
+#        "npm/node_modules/core-js/client",
+#        "npm/node_modules/systemjs/dist",
+#    ],
+#)
+#
+#history_server(
+#    name = "prodserver",
+#    data = [":prodapp"],
+#    templated_args = [
+#        "-a",
+#        "test/integration/client/prodapp",
+#    ],
+#)

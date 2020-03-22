@@ -7,13 +7,11 @@ import com.google.testing.web.WebTest;
 import io.grpc.Server;
 import io.grpc.ServerBuilder;
 import io.grpc.stub.StreamObserver;
-
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicLong;
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -31,7 +29,6 @@ import test.integration.proto.TestServiceGrpc.TestServiceImplBase;
 
 @RunWith(JUnit4.class)
 public class IntegrationTest {
-
   private static final By DO_UNARY_RPC_BUTTON = By.id("do-unary-rpc");
   private static final By RPC_RESPONSE_FIELD = By.id("rpc-response-field");
   private static final String UNARY_RPC_PAYLOAD = "unary-rpc-payload";
@@ -52,7 +49,7 @@ public class IntegrationTest {
   public static void beforeAll() throws Exception {
     Runfiles runfiles = Runfiles.create();
     httpServerProcess = startWebServer(runfiles, HTTP_SERVER_PORT);
-    //envoyProcess = startEnvoyProxy(runfiles);
+    // envoyProcess = startEnvoyProxy(runfiles);
     grpcServiceImpl = new TestServiceImpl();
     grpcServer = ServerBuilder.forPort(GRPC_SERVER_PORT).addService(grpcServiceImpl).build();
     grpcServer.start();
@@ -115,7 +112,7 @@ public class IntegrationTest {
 
   private static Process startWebServer(Runfiles runfiles, int serverPort) throws Exception {
     String path =
-        //runfiles.rlocation("rules_typescript_proto/test/integration/client/prodserver.sh");
+        // runfiles.rlocation("rules_typescript_proto/test/integration/client/prodserver.sh");
         runfiles.rlocation("rules_typescript_proto/test/integration/client/devserver_launcher.sh");
     Process p = new ProcessBuilder(path, "--port", Integer.toString(serverPort)).start();
     waitForReadyMessage(p, Integer.toString(serverPort));
@@ -141,7 +138,6 @@ public class IntegrationTest {
   }
 
   private static class TestServiceImpl extends TestServiceImplBase {
-
     private final AtomicLong unaryCount = new AtomicLong(0);
 
     public long getUnaryCount() {
